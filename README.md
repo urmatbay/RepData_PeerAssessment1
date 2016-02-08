@@ -21,6 +21,8 @@ activity.data <- read.csv(unzip("activity.zip"), header = TRUE)
 steps.per.day<- aggregate(steps ~ date, activity.data, sum)
 hist(steps.per.day$steps, col = "red", xlab = "number of steps", main = "Number of Steps Taken per Day - October and November, 2012")
 
+![alt text](images/image-0.png)
+
 
 ```
 
