@@ -1,11 +1,13 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
+title: 'Reproducible Research: Peer Assessment 1'
 author: "Baiaman Urmatbek"
-output: 
-  html_document:
-  keep_md: true
+output:
+  html_document: null
+  keep_md: yes
+  pdf_document: default
 ---
 
+# You can find this assignment with graphics here - http://rpubs.com/urmatbay/RepData_PeerAssessment1  
 
 ## Loading and preprocessing the data
 ```{r}
@@ -16,27 +18,24 @@ activity.data <- read.csv(unzip("activity.zip"), header = TRUE)
 
 ## Histogram of the total number of steps taken each day
 
-```{r}
+```{r echo=TRUE}
 
 steps.per.day<- aggregate(steps ~ date, activity.data, sum)
 hist(steps.per.day$steps, col = "red", xlab = "number of steps", main = "Number of Steps Taken per Day - October and November, 2012")
-
-![alt text](images/image-0.png)
-
 
 ```
 
 
 ## Mean and median number of steps taken each day
 
-```{r}
+```{r echo=TRUE}
 mean(steps.per.day$steps)
 median(steps.per.day$steps)
 ```
 
 
 ## What is the average daily activity pattern?
-```{r}
+```{r echo=TRUE}
 steps.per.day$date <- as.Date(steps.per.day$date)
 steps.per.day$steps <- as.numeric(steps.per.day$steps)
 
@@ -49,7 +48,7 @@ plot(steps.per.day$date, steps.per.day$steps, type="l", xlab = "Date", ylab = "N
 
 * I will replace NAs with the mean of daily steps
 
-```{r}
+```{r echo=TRUE}
 
 activity.data$steps[is.na(activity.data$steps)] <- mean(activity.data$steps[!is.na(activity.data$steps)])
 
@@ -64,7 +63,7 @@ hist(steps.per.day$steps, col = "red", xlab = "number of steps", main = "With NA
 
 ## The 5-minute interval that, on average, contains the maximum number of steps
 
-```{r}
+```{r echo=TRUE}
 
 which.max(steps.per.day$steps)
 
@@ -74,7 +73,7 @@ which.max(steps.per.day$steps)
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-```{r}
+```{r echo=TRUE}
 
 #steps.per.day.without.na$weekdays <- weekdays(steps.per.day.without.na$date)
 steps.per.day.without.na$weekdayN <- as.POSIXlt(steps.per.day.without.na$date)$wday
@@ -84,7 +83,7 @@ legend("bottomright", c("0 - Sunday", "1 - Monday", "2 - Tuesday", "3 - Wednesda
 
 ```
 
-```{r}
+```{r echo=TRUE}
 
 steps.weekdays <- mean(weekday.mean.steps[(2:6),2])
 steps.weekends <- mean(weekday.mean.steps[-(2:6),2])
@@ -97,7 +96,7 @@ barplot(average.steps, col = c("red", "blue"), main = "Differences Between Weekd
 
 ##Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
 
-```{r}
+```{r echo=TRUE}
 
 
 
